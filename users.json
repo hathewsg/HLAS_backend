@@ -1,7 +1,19 @@
 [
-{
-    "email": "admin@admindomain.com",
-    "password": "adminpassword2025", 
-    "role": "admin"
-  }
+    {
+        "email": "admin@admindomain.com",
+        "password": "adminpassword2025",
+        "role": "admin"
+    },
+
+    {
+        "email": "moderator@moddomain.com",
+        "password": "moderatorpassword2025",
+        "role": "moderator"
+    },
+
+    {
+        "email": "testuser@testdomain.com",
+        "password": "testpassword2025",
+        "role": "user"
+    }
 ]
