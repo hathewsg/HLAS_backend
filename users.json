@@ -1,7 +1,7 @@
 [
 {
-    "email": "admin@yourdomain.com",
-    "password": "yourpassword", 
+    "email": "admin@admindomain.com",
+    "password": "adminpassword2025", 
     "role": "admin"
   }
 ]
