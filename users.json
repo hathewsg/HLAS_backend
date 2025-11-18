@@ -1,1 +1,7 @@
-[]
+[
+{
+    "email": "admin@yourdomain.com",
+    "password": "yourpassword", 
+    "role": "admin"
+  }
+]
