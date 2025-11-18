@@ -25,9 +25,9 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(cors({
-  origin: "https://hathewsg.github.io/HookLineAndSinker/",  // your frontend domain
-  credentials: true
-})); // allow requests from GitHub Pages
+    origin: ["https://hathewsg.github.io/HookLineAndSinker/", "http://localhost:5500"],
+    credentials: true
+}));; // allow requests from GitHub Pages
 
 
 ////////////////////////////////////////
