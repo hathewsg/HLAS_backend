@@ -53,18 +53,6 @@ app.post('/register', (req, res) => {
   res.send('registered');
 });
 
-
-// app.post('/register', (req, res) => {
-//   const { email, password } = req.body;
-//   if (!email || !password) return res.status(400).send('missing');
-//   const users = loadUsers();
-//   if (users.find((u) => u.email === email)) return res.status(400).send('exists');
-//   users.push({ email, password }); // plaintext for demo only
-//   saveUsers(users);
-//   res.send('registered');
-// });
-
-
 ////////////////////////////////////////
 // 2. LOGIN
 ////////////////////////////////////////
@@ -85,23 +73,18 @@ app.post('/login', (req, res) => {
 
 });
 
-
-// app.post('/login', (req, res) => {
-//   const { email, password } = req.body;
-//   const users = loadUsers();
-//   const user = users.find((u) => u.email === email && u.password === password);
-//   if (!user) return res.status(401).send('invalid');
-//   res.cookie('session', email);
-//   res.send('logged in');
-// });
-
 ////////////////////////////////////////
 // 2.5 LOGOUT
 ////////////////////////////////////////
 app.post("/logout", (req, res) => {
-    res.clearCookie("session"); // or whatever cookie name you use
-    res.send("logged out");
+  res.clearCookie("session", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "None"
+  });
+  res.send("logged out");
 });
+
 
 
 
@@ -122,32 +105,6 @@ app.get('/me', (req, res) => {
     role: user.role || 'user' // default role if not set
   });
 });
-
-
-// v2 ---
-// app.get('/me', (req, res) => {
-//   if (!req.cookies.session) return res.status(401).send('not logged in');
-
-//   const users = loadUsers();
-//   const user = users.find((u) => u.email === req.cookies.session);
-
-//   if (!user) return res.status(401).send('not logged in');
-
-//   // Send role info too!
-//   res.json({
-//     email: user.email,
-//     role: user.role
-//   });
-// });
-
-// v1 ---
-// app.get('/me', (req, res) => {
-//   if (!req.cookies.session) return res.status(401).send('not logged in');
-//   res.send(`Hello ${req.cookies.session}`);
-// });
-
-// const PORT = process.env.PORT || 3000;
-// app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
 
 ////////////////////////////////////////
 // 4. Role-check middleware
