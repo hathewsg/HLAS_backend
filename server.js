@@ -93,22 +93,39 @@ app.post('/login', (req, res) => {
 ////////////////////////////////////////
 // 3. USER INFO
 ////////////////////////////////////////
+
 app.get('/me', (req, res) => {
-  if (!req.cookies.session) return res.status(401).send('not logged in');
+  const sessionEmail = req.cookies.session;
+  if (!sessionEmail) return res.status(401).json({ error: 'not logged in' });
 
   const users = loadUsers();
-  const user = users.find((u) => u.email === req.cookies.session);
+  const user = users.find(u => u.email === sessionEmail);
+  if (!user) return res.status(401).json({ error: 'not logged in' });
 
-  if (!user) return res.status(401).send('not logged in');
-
-  // Send role info too!
   res.json({
     email: user.email,
-    role: user.role
+    role: user.role || 'user' // default role if not set
   });
 });
 
 
+// v2 ---
+// app.get('/me', (req, res) => {
+//   if (!req.cookies.session) return res.status(401).send('not logged in');
+
+//   const users = loadUsers();
+//   const user = users.find((u) => u.email === req.cookies.session);
+
+//   if (!user) return res.status(401).send('not logged in');
+
+//   // Send role info too!
+//   res.json({
+//     email: user.email,
+//     role: user.role
+//   });
+// });
+
+// v1 ---
 // app.get('/me', (req, res) => {
 //   if (!req.cookies.session) return res.status(401).send('not logged in');
 //   res.send(`Hello ${req.cookies.session}`);
