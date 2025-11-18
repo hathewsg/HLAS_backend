@@ -25,8 +25,8 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(cors({
-    origin: ["https://hathewsg.github.io", "http://localhost:5500"],
-    credentials: true
+  origin: ["https://hathewsg.github.io", "http://localhost:5500"],
+  credentials: true
 }));; // allow requests from GitHub Pages
 
 
@@ -76,8 +76,13 @@ app.post('/login', (req, res) => {
   if (!user) return res.status(401).send('invalid');
 
   // Store session cookie containing the email
-  res.cookie('session', email, { httpOnly: false }); 
+  res.cookie('session', email, {
+    httpOnly: true,       // prevents JS from reading cookie
+    secure: true,         // must be true for HTTPS
+    sameSite: 'None'      // allows cross-site requests
+  });
   res.send('logged in');
+
 });
 
 
