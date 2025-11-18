@@ -24,7 +24,10 @@ function saveUsers(users) {
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(cors()); // allow requests from GitHub Pages
+app.use(cors({
+  origin: "https://hathewsg.github.io/HookLineAndSinker/",  // your frontend domain
+  credentials: true
+})); // allow requests from GitHub Pages
 
 
 ////////////////////////////////////////
