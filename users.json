@@ -2,13 +2,15 @@
     {
         "email": "admin@admindomain.com",
         "password": "adminpassword2025",
-        "role": "admin"
+        "role": "admin",
+        "displayName": "adminUser"
     },
 
     {
         "email": "moderator@moddomain.com",
         "password": "moderatorpassword2025",
-        "role": "moderator"
+        "role": "moderator",
+        "displayName": "modnUser"
     },
 
     {
