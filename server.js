@@ -87,9 +87,6 @@ app.post("/logout", (req, res) => {
   res.send("logged out");
 });
 
-
-
-
 ////////////////////////////////////////
 // 3. USER INFO
 ////////////////////////////////////////
@@ -172,18 +169,19 @@ app.post('/set-role', requireRole('admin'), (req, res) => {
 ////////////////////////////////////////
 app.post('/update-display-name', (req, res) => {
   const sessionEmail = req.cookies.session;
-  if (!sessionEmail) return res.status(401).send('not logged in');
+  if (!sessionEmail) return res.status(401).send("not logged in");
 
   const { displayName } = req.body;
-  if (!displayName) return res.status(400).send('missing displayName');
+  if (!displayName) return res.status(400).send("Missing displayName");
 
   const users = loadUsers();
   const user = users.find(u => u.email === sessionEmail);
+  if (!user) return res.status(404).send("User not found");
 
   user.displayName = displayName;
   saveUsers(users);
 
-  res.send('displayName updated');
+  res.send("Display name updated");
 });
 
 ////////////////////////////////////////
@@ -191,18 +189,19 @@ app.post('/update-display-name', (req, res) => {
 ////////////////////////////////////////
 app.post('/update-profile-picture', (req, res) => {
   const sessionEmail = req.cookies.session;
-  if (!sessionEmail) return res.status(401).send('not logged in');
+  if (!sessionEmail) return res.status(401).send("not logged in");
 
   const { image } = req.body;
-  if (!image) return res.status(400).send('missing image');
+  if (!image || !image.startsWith("data:image/")) return res.status(400).send("Invalid image");
 
   const users = loadUsers();
   const user = users.find(u => u.email === sessionEmail);
+  if (!user) return res.status(404).send("User not found");
 
   user.profilePicture = image;
   saveUsers(users);
 
-  res.send('profile picture updated');
+  res.send("Profile picture updated");
 });
 
 
