@@ -3,7 +3,8 @@
         "email": "admin@admindomain.com",
         "password": "adminpassword2025",
         "role": "admin",
-        "displayName": "adminUser"
+        "displayName": "adminUser",
+        "profilePicture": null
     },
 
     {
