@@ -47,6 +47,8 @@ app.post('/register', (req, res) => {
     email,
     password, // (insecure, for demo)
     role: "user" // <-- NEW
+    displayName: email.split("@")[0], // default
+    profilePicture: null // user can upload later
   });
 
   saveUsers(users);
@@ -103,6 +105,8 @@ app.get('/me', (req, res) => {
   res.json({
     email: user.email,
     role: user.role || 'user' // default role if not set
+    displayName: user.displayName || user.email.split("@")[0],
+    profilePicture: user.profilePicture || null
   });
 });
 
@@ -162,6 +166,45 @@ app.post('/set-role', requireRole('admin'), (req, res) => {
 
   res.send(`Role updated to ${role}`);
 });
+
+////////////////////////////////////////
+// 8. OPTIONAL: User can change display name
+////////////////////////////////////////
+app.post('/update-display-name', (req, res) => {
+  const sessionEmail = req.cookies.session;
+  if (!sessionEmail) return res.status(401).send('not logged in');
+
+  const { displayName } = req.body;
+  if (!displayName) return res.status(400).send('missing displayName');
+
+  const users = loadUsers();
+  const user = users.find(u => u.email === sessionEmail);
+
+  user.displayName = displayName;
+  saveUsers(users);
+
+  res.send('displayName updated');
+});
+
+////////////////////////////////////////
+// 9. OPTIONAL: User can change profile picture
+////////////////////////////////////////
+app.post('/update-profile-picture', (req, res) => {
+  const sessionEmail = req.cookies.session;
+  if (!sessionEmail) return res.status(401).send('not logged in');
+
+  const { image } = req.body;
+  if (!image) return res.status(400).send('missing image');
+
+  const users = loadUsers();
+  const user = users.find(u => u.email === sessionEmail);
+
+  user.profilePicture = image;
+  saveUsers(users);
+
+  res.send('profile picture updated');
+});
+
 
 ////////////////////////////////////////
 
