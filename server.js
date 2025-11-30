@@ -46,7 +46,7 @@ app.post('/register', (req, res) => {
   users.push({
     email,
     password, // (insecure, for demo)
-    role: "user" // <-- NEW
+    role: "user", // <-- NEW
     displayName: email.split("@")[0], // default
     profilePicture: null // user can upload later
   });
@@ -104,7 +104,7 @@ app.get('/me', (req, res) => {
 
   res.json({
     email: user.email,
-    role: user.role || 'user' // default role if not set
+    role: user.role || 'user', // default role if not set
     displayName: user.displayName || user.email.split("@")[0],
     profilePicture: user.profilePicture || null
   });
