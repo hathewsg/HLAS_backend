@@ -10,12 +10,16 @@
         "email": "moderator@moddomain.com",
         "password": "moderatorpassword2025",
         "role": "moderator",
-        "displayName": "modnUser"
+        "displayName": "modUser",
+        "profilePicture": null
     },
 
     {
         "email": "testuser@testdomain.com",
         "password": "testpassword2025",
-        "role": "user"
+        "role": "user",
+        "displayName": "testUser",
+        "profilePicture": null
+
     }
 ]
